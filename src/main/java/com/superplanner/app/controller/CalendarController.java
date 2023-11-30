@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.superplanner.app.model.Day;
-import com.superplanner.service.CalendarService;
+import com.superplanner.app.service.CalendarService;
 
 @Controller
 @RequestMapping("/calendar")
 public class CalendarController {
     
+    @Autowired
     private final CalendarService calendarService;
 
     public CalendarController(CalendarService calendarService) {
@@ -25,20 +26,20 @@ public class CalendarController {
     }
 
     @GetMapping("/{year}/{month}")
-    public String viewMonth(@PathVariable int year, @PathVariable int month, Model model) {
+    public String viewMonth(@PathVariable int year, @PathVariable Long month, Model model) {
         model.addAttribute("month", calendarService.getMonth(year, month));
         return "calendar";
     }
 
     @PostMapping("/addReminder")
-    public String addReminder(@RequestParam int dayId, @RequestParam String reminderText) {
+    public String addReminder(@RequestParam Long dayId, @RequestParam String reminderTime, @RequestParam String reminderDescription) {
         Day day = calendarService.getDayById(dayId);
-        calendarService.addReminder(day, reminderText);
+        calendarService.addReminder(day, reminderTime, reminderDescription);
         return "redirect:/calendar";
     }
 
     @PostMapping("/removeReminder")
-    public String removeReminder(@RequestParam int dayId, @RequestParam UUID reminderId) {
+    public String removeReminder(@RequestParam Long dayId, @RequestParam String reminderId) {
         Day day = calendarService.getDayById(dayId);
         calendarService.removeReminder(day, reminderId);
         return "redirect:/calendar";
