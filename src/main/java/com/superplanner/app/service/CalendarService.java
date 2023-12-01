@@ -16,16 +16,17 @@ public class CalendarService {
 
     @Autowired
     private final CalendarRepository calendarRepository;
+    
 
     public CalendarService(CalendarRepository calendarRepository) {
         this.calendarRepository = calendarRepository;
     }
 
-    public Month getMonth(int year, Long month) {
-        return calendarRepository.findByYearAndMonth(year, month);
+    public Month getMonth(int year, Long monthId) {
+        return calendarRepository.findByYearAndMonth(year, monthId);
     }
 
-    public Day getDayById(String dayId) {
+    public Day getDayById(Long dayId) {
         return calendarRepository.findByDayId(dayId);
     }
 

@@ -33,14 +33,14 @@ public class CalendarController {
     }
 
     @PostMapping("/addReminder")
-    public String addReminder(@RequestParam String dayId, @RequestParam String reminderTime, @RequestParam String reminderDescription) {
+    public String addReminder(@RequestParam Long dayId, @RequestParam String reminderTime, @RequestParam String reminderDescription) {
         Day day = calendarService.getDayById(dayId);
         calendarService.addReminder(day, reminderTime, reminderDescription);
         return "redirect:/calendar";
     }
 
     @PostMapping("/removeReminder")
-    public String removeReminder(@RequestParam String dayId, @RequestParam String reminderId) {
+    public String removeReminder(@RequestParam Long dayId, @RequestParam String reminderId) {
         Day day = calendarService.getDayById(dayId);
         calendarService.removeReminder(day, reminderId);
         return "redirect:/calendar";
