@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.superplanner.app.repository;")
+@EnableMongoRepositories(basePackages = "com.superplanner.app.repository")
 public class MongoConfig extends AbstractMongoClientConfiguration {
     
     @Value("${spring.data.mongodb.uri}")

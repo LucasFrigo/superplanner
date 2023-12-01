@@ -16,27 +16,28 @@ public class CalendarService {
 
     @Autowired
     private final CalendarRepository calendarRepository;
+    
 
     public CalendarService(CalendarRepository calendarRepository) {
         this.calendarRepository = calendarRepository;
     }
 
-    public Month getMonth(int year, Long month) {
-        return calendarRepository.findMonthByYearAndMonth(year, month);
+    public Month getMonth(int year, Long monthId) {
+        return calendarRepository.findByYearAndMonth(year, monthId);
     }
 
     public Day getDayById(Long dayId) {
-        return calendarRepository.findDayById(dayId);
+        return calendarRepository.findByDayId(dayId);
     }
 
     public void addReminder(Day day, String reminderTime, String reminderDescription) {
         day.addReminder(reminderTime, reminderDescription);
-        calendarRepository.saveDay(day);
+        calendarRepository.save(day.getMonth());
     }
 
     public void removeReminder(Day day, String reminderId) {
         day.removeReminder(reminderId);
-        calendarRepository.saveDay(day);
+        calendarRepository.save(day.getMonth());
     }
 
     
