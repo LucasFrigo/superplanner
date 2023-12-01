@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Calendar with Reminders</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+</head>
+
+<body>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lembretes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                
+                    <div class="">
+                        <h5 class="mb-3">Adicione seu lembrete</h5>
+                        <form id="reminderForm">
+                            <div class="form-group">
+                                <label for="reminderDate">Data seleciona:</label>
+                                <input type="date" class="form-control" id="reminderDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reminderText">Assunto:</label>
+                                <textarea class="form-control" id="reminderText" rows="3" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Handle reminder form submission
+            $('#reminderForm').submit(function (event) {
+                event.preventDefault();
+
+                // Get form values
+                var reminderDate = $('#reminderDate').val();
+                var reminderText = $('#reminderText').val();
+
+                // Add reminder to the calendar
+                $('#calendar').fullCalendar('renderEvent', {
+                    title: reminderText,
+                    start: reminderDate,
+                    allDay: true
+                });
+
+                // Add reminder to the list
+                $('#reminderList').append('<li class="list-group-item">' + reminderDate + ': ' + reminderText + '</li>');
+
+                // Clear the form
+                $('#reminderForm')[0].reset();
+            });
+        });
+    </script>
+</body>

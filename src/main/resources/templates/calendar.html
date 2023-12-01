@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Calendar with Reminders</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+       <!-- Custom CSS -->
+       <style>
+        body, html {
+            height: 90%;
+            margin: 0;
+        }
+
+        #calendar {
+            width: 70%;
+            max-height: 90vh; /* Adjust the max height as needed */
+            margin: 0 auto; /* Center the calendar horizontally */
+        }
+
+      
+    </style>
+    
+</head>
+
+<body>
+    <div class="container-fluid mt-3">
+        <h2 class="mb-4">Calendar with Reminders</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Calendar -->
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize FullCalendar
+            $('#calendar').fullCalendar({
+                defaultView: 'month',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                events: [], // You can add events dynamically
+                dayClick: function (date) {
+                    // Handle day click event (you can open a modal to add reminders)
+                    alert('Clicked on: ' + date.format());
+                }
+            });
+
+            // // Handle reminder form submission
+            // $('#reminderForm').submit(function (event) {
+            //     event.preventDefault();
+
+            //     // Get form values
+            //     var reminderDate = $('#reminderDate').val();
+            //     var reminderText = $('#reminderText').val();
+
+            //     // Add reminder to the calendar
+            //     $('#calendar').fullCalendar('renderEvent', {
+            //         title: reminderText,
+            //         start: reminderDate,
+            //         allDay: true
+            //     });
+
+            //     // Add reminder to the list
+            //     $('#reminderList').append('<li class="list-group-item">' + reminderDate + ': ' + reminderText + '</li>');
+
+            //     // Clear the form
+            //     $('#reminderForm')[0].reset();
+            // });
+        });
+    </script>
+</body>
+
+</html>
