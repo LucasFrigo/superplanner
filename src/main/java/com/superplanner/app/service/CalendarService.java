@@ -22,21 +22,21 @@ public class CalendarService {
     }
 
     public Month getMonth(int year, Long month) {
-        return calendarRepository.findMonthByYearAndMonth(year, month);
+        return calendarRepository.findByYearAndMonth(year, month);
     }
 
-    public Day getDayById(Long dayId) {
-        return calendarRepository.findDayById(dayId);
+    public Day getDayById(String dayId) {
+        return calendarRepository.findByDayId(dayId);
     }
 
     public void addReminder(Day day, String reminderTime, String reminderDescription) {
         day.addReminder(reminderTime, reminderDescription);
-        calendarRepository.saveDay(day);
+        calendarRepository.save(day.getMonth());
     }
 
     public void removeReminder(Day day, String reminderId) {
         day.removeReminder(reminderId);
-        calendarRepository.saveDay(day);
+        calendarRepository.save(day.getMonth());
     }
 
     
