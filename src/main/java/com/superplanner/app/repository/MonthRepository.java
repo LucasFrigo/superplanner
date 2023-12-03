@@ -7,11 +7,8 @@ import org.springframework.stereotype.Repository;
 import com.superplanner.app.model.Day;
 import com.superplanner.app.model.Month;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Repository
-public interface CalendarRepository extends MongoRepository<Month, Long> {
+public interface MonthRepository extends MongoRepository<Month, Long> {
 
     @Query("{ 'year' : ?0, 'monthId' : ?1 }")
     Month findByYearAndMonth(int year, Long monthId);
