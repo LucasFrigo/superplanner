@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.superplanner.app.model.Day;
+import com.superplanner.app.model.Month;
 import com.superplanner.app.service.CalendarService;
 
 @Controller
@@ -32,14 +33,30 @@ public class CalendarController {
     }
 
     @GetMapping("/{year}/{month}")
-    public String viewMonth(@PathVariable int year, @PathVariable Long month, Model model) {
+    public String viewMonth(
+        @PathVariable int year,
+        @PathVariable Long month, 
+         Model model) {
+
         model.addAttribute("month", calendarService.getMonth(year, month));
         return "calendar";
     }
 
     @PostMapping("/addReminder")
-    public String addReminder(@RequestParam Long dayId, @RequestParam String reminderTime, @RequestParam String reminderDescription) {
+    public String addReminder(
+        @RequestParam Long dayId, 
+        @RequestParam String reminderTime, 
+        @RequestParam String reminderDescription,
+        @RequestParam int year,
+        @RequestParam Long monthId) {
+            
         Day day = calendarService.getDayById(dayId);
+        if (day == null) {
+            Month month = getOrCreateMonth(year, monthId);
+            day = new Day();
+            day.setDayId(dayId);
+            day.setMonth(month);
+        }
         calendarService.addReminder(day, reminderTime, reminderDescription);
         return "redirect:/calendar";
     }
@@ -51,4 +68,7 @@ public class CalendarController {
         return "redirect:/calendar";
     }
 
+    private Month getOrCreateMonth(int year, Long month) {
+        return calendarService.getOrCreateMonth(year, month);
+    }
 }
