@@ -26,7 +26,7 @@ public class CalendarController {
         this.calendarService = calendarService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String viewCalendar() {
         return "calendar";
     }
