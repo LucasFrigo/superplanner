@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.superplanner.app.model.Day;
 import com.superplanner.app.service.CalendarService;
 
-@RestController
+@Controller
 @RequestMapping("/calendar")
 public class CalendarController {
     
@@ -24,6 +24,11 @@ public class CalendarController {
 
     public CalendarController(CalendarService calendarService) {
         this.calendarService = calendarService;
+    }
+
+    @GetMapping("/")
+    public String viewCalendar() {
+        return "calendar";
     }
 
     @GetMapping("/{year}/{month}")
